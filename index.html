@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="nav-bar"></div>
+
+    <div id="app">
+      <div class="product">
+        <div class="product-image">
+          <img :src="variants[activeVariant].image" alt="#">
+        </div>
+
+        <div class="product-info">
+          <h1>{{ product }}</h1>
+          <p v-if="variants[activeVariant].stockCount > 10">In Stock</p>
+          <p class="warning" v-else-if="variants[activeVariant].stockCount <= 10 && variants[activeVariant].stockCount >= 1">Only {{ variants[activeVariant].stockCount }} left!</p>
+          <p class="warning" v-else>Out of Stock</p>
+
+          <ul>
+            <li v-for="detail in details">{{ detail }}</li>
+          </ul>
+
+          <!-- I don't know what the key is used for -->
+          <div class="variantChoiceContainer">
+            <div class="variantChoice" v-for="(variant, index) in variants" :key="index">
+              <p @click="setActiveVariant(index)" data-color="variant.color">{{ variant.color }}</p>
+            </div>
+          </div>
+
+
+          <button @click="addToCart">
+            Add to Cart
+          </button>
+
+          <div class='cart'>
+            <p>Cart({{customerCart}})</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
